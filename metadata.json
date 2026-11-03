@@ -1,0 +1,6 @@
+{
+  "name": "SAMAR ESPORTS",
+  "description": "Free Fire India Esports Tournament Platform with Widara Coin wallet, live leaderboards, and tournament management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

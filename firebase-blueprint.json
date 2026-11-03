@@ -1,0 +1,174 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile containing Free Fire player info and role",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "email": { "type": "string" },
+        "name": { "type": "string" },
+        "mobileNumber": { "type": "string" },
+        "freeFireUid": { "type": "string" },
+        "inGameName": { "type": "string" },
+        "photoUrl": { "type": "string" },
+        "role": { "type": "string", "enum": ["player", "admin"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "email", "name", "createdAt"]
+    },
+    "Tournament": {
+      "title": "Tournament",
+      "description": "Esports tournament details for Free Fire India",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "category": { "type": "string", "enum": ["SOLO", "DUO", "SQUAD"] },
+        "matchDateTime": { "type": "string" },
+        "entryFee": { "type": "integer" },
+        "prizePool": { "type": "integer" },
+        "maxSlots": { "type": "integer" },
+        "joinedSlots": { "type": "integer" },
+        "rules": { "type": "string" },
+        "roomId": { "type": "string" },
+        "roomPassword": { "type": "string" },
+        "status": { "type": "string", "enum": ["UPCOMING", "ONGOING", "COMPLETED", "CANCELLED"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "name", "category", "matchDateTime", "entryFee", "prizePool", "maxSlots", "status", "createdAt"]
+    },
+    "Registration": {
+      "title": "Registration",
+      "description": "Tournament entry record for player or team",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "tournamentId": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "playerUid": { "type": "string" },
+        "inGameName": { "type": "string" },
+        "category": { "type": "string" },
+        "teammates": { "type": "array" },
+        "entryFeePaid": { "type": "integer" },
+        "status": { "type": "string", "enum": ["REGISTERED", "CANCELLED"] },
+        "joinedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "tournamentId", "userId", "userName", "playerUid", "inGameName", "entryFeePaid", "status", "joinedAt"]
+    },
+    "Wallet": {
+      "title": "Wallet",
+      "description": "User Widara Coin balance and statistics",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "coinBalance": { "type": "integer" },
+        "totalEarned": { "type": "integer" },
+        "totalWithdrawn": { "type": "integer" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "coinBalance", "updatedAt"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Audit record of all Widara coin credit and debit movements",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "type": { "type": "string", "enum": ["CREDIT", "DEBIT"] },
+        "category": { "type": "string", "enum": ["TOURNAMENT_ENTRY", "TOURNAMENT_PRIZE", "COIN_PURCHASE", "WITHDRAWAL", "ADMIN_ADJUSTMENT"] },
+        "amount": { "type": "integer" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "status": { "type": "string", "enum": ["SUCCESS", "PENDING", "FAILED"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "type", "category", "amount", "title", "status", "createdAt"]
+    },
+    "Withdrawal": {
+      "title": "Withdrawal",
+      "description": "Coin withdrawal request submitted by player awaiting admin approval",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "amount": { "type": "integer" },
+        "upiIdOrBank": { "type": "string" },
+        "status": { "type": "string", "enum": ["PENDING", "APPROVED", "REJECTED"] },
+        "adminNote": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "processedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "userName", "amount", "upiIdOrBank", "status", "createdAt"]
+    },
+    "Result": {
+      "title": "Result",
+      "description": "Completed match results and leaderboard score records",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "tournamentId": { "type": "string" },
+        "tournamentName": { "type": "string" },
+        "winnerUid": { "type": "string" },
+        "winnerName": { "type": "string" },
+        "winnerInGameName": { "type": "string" },
+        "prizeAmount": { "type": "integer" },
+        "killPoints": { "type": "integer" },
+        "placementPoints": { "type": "integer" },
+        "totalPoints": { "type": "integer" },
+        "completedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "tournamentId", "tournamentName", "winnerUid", "winnerName", "prizeAmount", "totalPoints", "completedAt"]
+    },
+    "AdminRecord": {
+      "title": "AdminRecord",
+      "description": "Document marking a user as system administrator",
+      "type": "object",
+      "properties": {
+        "adminId": { "type": "string" },
+        "email": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["adminId", "email", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Player and user profiles"
+    },
+    "/tournaments/{tournamentId}": {
+      "schema": { "$ref": "#/entities/Tournament" },
+      "description": "Public tournament catalog and management"
+    },
+    "/registrations/{registrationId}": {
+      "schema": { "$ref": "#/entities/Registration" },
+      "description": "Tournament player registrations"
+    },
+    "/wallets/{userId}": {
+      "schema": { "$ref": "#/entities/Wallet" },
+      "description": "Per-player coin wallet balances"
+    },
+    "/transactions/{transactionId}": {
+      "schema": { "$ref": "#/entities/Transaction" },
+      "description": "Ledger of all coin movements"
+    },
+    "/withdrawals/{withdrawalId}": {
+      "schema": { "$ref": "#/entities/Withdrawal" },
+      "description": "Coin cashout requests"
+    },
+    "/results/{resultId}": {
+      "schema": { "$ref": "#/entities/Result" },
+      "description": "Tournament results and leaderboards"
+    },
+    "/admins/{adminId}": {
+      "schema": { "$ref": "#/entities/AdminRecord" },
+      "description": "Admin authorization markers"
+    }
+  }
+}
